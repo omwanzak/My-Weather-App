@@ -1,18 +1,64 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-// Define the weather data interface
+// Define the weather data interface - Updated to match optimized API response
 export interface WeatherData {
   city: string;
   country: string;
   temperature: number;
+  feelsLike: number;
+  tempMin: number;
+  tempMax: number;
   humidity: number;
+  pressure: number;
+  seaLevel: number | null;
+  groundLevel: number | null;
   cloudCover: number;
+  visibility: number | null;
   localTime: string;
-  description: string;
-  icon: string;
+  localTimeFormatted: string;
+  weather: {
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
+  };
+  wind: {
+    speed: number;
+    direction: number;
+    gust: number | null;
+  };
+  precipitation: {
+    rain: {
+      '1h': number;
+      '3h': number | null;
+    } | null;
+    snow: {
+      '1h': number;
+      '3h': number | null;
+    } | null;
+  };
   coordinates: {
     lat: number;
     lon: number;
+  };
+  sun: {
+    sunrise: string;
+    sunset: string;
+  };
+  timezone: number;
+  dataTimestamp: string;
+  units: {
+    temperature: string;
+    windSpeed: string;
+    pressure: string;
+    visibility: string;
+    precipitation: string;
+  };
+  meta: {
+    requestedUnits: string;
+    requestedLanguage: string;
+    apiCallsUsed: number;
+    source: string;
   };
 }
 

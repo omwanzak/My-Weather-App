@@ -12,35 +12,36 @@ export default function Home() {
   // Function to get dynamic background based on weather and temperature
   const getWeatherBackground = () => {
     if (!currentWeather) {
-      // Default background when no weather data
-      return "bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600";
+      // Default background when no weather data - Lilac gradient
+      return "bg-gradient-to-br from-purple-300 via-purple-400 to-purple-500";
     }
 
-    const { temperature, description } = currentWeather;
-    const weatherDesc = description.toLowerCase();
+    const { temperature, weather } = currentWeather;
+    const weatherMain = weather.main.toLowerCase();
+    const weatherDesc = weather.description.toLowerCase();
 
     // Weather condition based backgrounds (priority over temperature)
-    if (weatherDesc.includes('clear') || weatherDesc.includes('sunny')) {
+    if (weatherMain === 'clear' || weatherDesc.includes('sunny')) {
       return "bg-gradient-to-br from-orange-300 via-yellow-400 to-orange-500";
     }
     
-    if (weatherDesc.includes('rain') || weatherDesc.includes('drizzle')) {
+    if (weatherMain === 'rain' || weatherDesc.includes('drizzle')) {
       return "bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600";
     }
     
-    if (weatherDesc.includes('storm') || weatherDesc.includes('thunder')) {
+    if (weatherMain === 'thunderstorm' || weatherDesc.includes('storm')) {
       return "bg-gradient-to-br from-gray-700 via-purple-800 to-gray-900";
     }
     
-    if (weatherDesc.includes('snow') || weatherDesc.includes('blizzard')) {
+    if (weatherMain === 'snow' || weatherDesc.includes('blizzard')) {
       return "bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400";
     }
     
-    if (weatherDesc.includes('fog') || weatherDesc.includes('mist') || weatherDesc.includes('haze')) {
+    if (weatherMain === 'mist' || weatherMain === 'fog' || weatherMain === 'haze' || weatherDesc.includes('fog')) {
       return "bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500";
     }
     
-    if (weatherDesc.includes('cloud')) {
+    if (weatherMain === 'clouds' || weatherDesc.includes('cloud')) {
       return "bg-gradient-to-br from-gray-300 via-blue-400 to-gray-500";
     }
 
@@ -72,12 +73,13 @@ export default function Home() {
       };
     }
 
-    const { temperature, description } = currentWeather;
-    const weatherDesc = description.toLowerCase();
+    const { temperature, weather } = currentWeather;
+    const weatherMain = weather.main.toLowerCase();
+    const weatherDesc = weather.description.toLowerCase();
 
     // Light backgrounds need dark text
-    if (weatherDesc.includes('clear') || weatherDesc.includes('sunny') || 
-        weatherDesc.includes('snow') || weatherDesc.includes('fog') || 
+    if (weatherMain === 'clear' || weatherDesc.includes('sunny') || 
+        weatherMain === 'snow' || weatherDesc.includes('fog') || 
         weatherDesc.includes('mist') || temperature > 25) {
       return {
         primary: "text-gray-800",
